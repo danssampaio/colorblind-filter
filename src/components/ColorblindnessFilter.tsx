@@ -9,7 +9,7 @@ export const ColorblindnessFilter = () => {
     <main>
       <div className="p-2 border-black shadow rounded-lg">
         Filtro Daltonico
-        <select className="ml-2 rounded bg-transparent">
+        <select className="ml-2 rounded bg-[#D53B30]">
           <option value="Padrao">Padrão</option>
           <option value="Protanopia">Protanopia</option>
           <option value="Deuteranopia">Deuteranopia</option>

@@ -53,7 +53,7 @@ export const BlogPostContent = ({ post }: { post: GetPostResult["post"] }) => {
             </Link>
           ))}
         </div>
-        <div className="text-sm opacity-40 mt-4">
+        <div className="text-sm mt-4">
           {Intl.DateTimeFormat("en-US").format(
             new Date(publishedAt || createdAt)
           )}
