@@ -12,11 +12,15 @@ const Page = async ({
   const page = searchParams.page ? parseInt(searchParams.page as string) : 1;
   const result = await wisp.getPosts({ limit: 6, page });
   return (
-    <div className="container mx-auto px-5 mb-10">
+    <div>
       <Header />
-      <BlogPostsPreview posts={result.posts} />
-      <BlogPostsPagination pagination={result.pagination} />
-      <Footer />
+      <div className="container mx-auto px-5 mb-10">
+        <BlogPostsPreview posts={result.posts} />
+        <BlogPostsPagination pagination={result.pagination} />
+      </div>
+      <div className="mx-auto">
+        <Footer />
+      </div>
     </div>
   );
 };
