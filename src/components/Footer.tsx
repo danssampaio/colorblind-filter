@@ -5,11 +5,10 @@ import { config } from "@/config";
 
 export const Footer: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-between mt-8 md:mt-16 mb-12">
-      <div className="text-sm text-muted-foreground">
+    <section className="flex items-center justify-center py-12 px-5 bg-[#D53B30]">
+      <div>
         © {config.blog.copyright} {new Date().getFullYear()}
       </div>
-      <DarkModeToggle />
     </section>
   );
 };

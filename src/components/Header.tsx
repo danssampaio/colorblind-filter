@@ -12,6 +12,8 @@ import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent } from "react";
+import { ColorblindnessFilter } from "./ColorblindnessFilter";
+import { DarkModeToggle } from "./DarkModeToggle";
 interface MenuItem {
   name: string;
   href: string;
@@ -33,7 +35,7 @@ export const Navigation: FunctionComponent = () => {
               href={item.href}
               target={item.openInNewTab ? "_blank" : "_self"}
               className={cn(
-                "hover:text-gray-900",
+                "p-2 rounded-md hover:text-gray-900",
                 pathname === item.href && "font-semibold"
               )}
             >
@@ -41,6 +43,12 @@ export const Navigation: FunctionComponent = () => {
             </a>
           </div>
         ))}
+        <div className="ml-6">
+          <ColorblindnessFilter />
+        </div>
+        <div className="ml-6">
+          <DarkModeToggle />
+        </div>
       </div>
       <div className="md:hidden">
         <Sheet>
@@ -63,6 +71,12 @@ export const Navigation: FunctionComponent = () => {
                     {item.name}
                   </a>
                 ))}
+                <div className="ml-6">
+                  <ColorblindnessFilter />
+                </div>
+                <div className="ml-6">
+                  <DarkModeToggle />
+                </div>
               </SheetDescription>
             </SheetHeader>
           </SheetContent>
@@ -74,7 +88,7 @@ export const Navigation: FunctionComponent = () => {
 
 export const Header: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-between mt-8 md:mt-16 mb-12">
+    <section className="flex items-center justify-between py-5 px-5 bg-[#D53B30]">
       <Link href="/">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
           {config.blog.name}
