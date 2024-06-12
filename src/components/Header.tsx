@@ -14,15 +14,25 @@ import { usePathname } from "next/navigation";
 import { FunctionComponent } from "react";
 import { ColorblindnessFilter } from "./ColorblindnessFilter";
 import { DarkModeToggle } from "./DarkModeToggle";
+import { applyDaltonismCorrection } from '../lib/colorUtils';
+
+
 interface MenuItem {
   name: string;
   href: string;
   openInNewTab?: boolean;
 }
+
 const menuItems: MenuItem[] = [
   { name: "Blog", href: "/" },
   { name: "About", href: "/about" },
 ];
+
+const handleColorblindnessChange = (type: "Protanopia" | "Deuteranopia" | "Tritanopia" | "Padrao") => {
+  applyDaltonismCorrection(type);
+};
+
+
 export const Navigation: FunctionComponent = () => {
   const pathname = usePathname();
 
@@ -44,7 +54,7 @@ export const Navigation: FunctionComponent = () => {
           </div>
         ))}
         <div className="ml-6">
-          <ColorblindnessFilter />
+          <ColorblindnessFilter onChange={handleColorblindnessChange} />
         </div>
         <div className="ml-6">
           <DarkModeToggle />
@@ -72,7 +82,7 @@ export const Navigation: FunctionComponent = () => {
                   </a>
                 ))}
                 <div className="ml-6">
-                  <ColorblindnessFilter />
+                  <ColorblindnessFilter onChange={handleColorblindnessChange} />
                 </div>
                 <div className="ml-6">
                   <DarkModeToggle />
@@ -98,3 +108,4 @@ export const Header: FunctionComponent = () => {
     </section>
   );
 };
+

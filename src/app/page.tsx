@@ -14,7 +14,7 @@ const Page = async ({
   return (
     <div>
       <Header />
-      <div className="container mx-auto px-5 mb-10">
+      <div className="container mx-auto px-24 mb-10">
         <BlogPostsPreview posts={result.posts} />
         <BlogPostsPagination pagination={result.pagination} />
       </div>
