@@ -24,7 +24,7 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  { name: "Blog", href: "/" },
+  { name: "Home", href: "/" },
   { name: "Componentes", href: "/componentsPage" },
   { name: "About", href: "/about" },
 ];
@@ -71,14 +71,14 @@ export const Navigation: FunctionComponent = () => {
               <SheetDescription>
                 {menuItems.map((item) => (
                   <a
-                    key={item.href}
-                    href={item.href}
-                    target={item.openInNewTab ? "_blank" : "_self"}
-                    className={cn(
-                      "block py-2",
-                      pathname === item.href && "font-semibold"
+                  key={item.href}
+                  href={item.href}
+                  target={item.openInNewTab ? "_blank" : "_self"}
+                  className={cn(
+                    "block py-2",
+                    pathname === item.href && "font-semibold"
                     )}
-                  >
+                    >
                     {item.name}
                   </a>
                 ))}

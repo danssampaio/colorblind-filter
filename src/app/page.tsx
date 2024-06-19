@@ -1,4 +1,6 @@
-import { BlogPostsPreview } from "@/components/BlogPostPreview";
+//app.tsx
+
+import Posts from "@/components/Posts";
 import { BlogPostsPagination } from "@/components/BlogPostsPagination";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -15,7 +17,7 @@ const Page = async ({
     <div>
       <Header />
       <div className="container mx-auto px-24 mb-10">
-        <BlogPostsPreview posts={result.posts} />
+        <Posts />
         <BlogPostsPagination pagination={result.pagination} />
       </div>
       <div className="mx-auto">

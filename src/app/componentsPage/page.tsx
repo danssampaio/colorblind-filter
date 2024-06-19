@@ -6,10 +6,12 @@ import Markdown from "react-markdown";
 import Navbar from "@/components/componentsTest/Navbar";
 import Button from "@/components/componentsTest/Button";
 import Card from "@/components/componentsTest/Card";
+import Image from "next/image";
 
 const content = `# Lista de Componentes
 
-Lista de componentes de diversas cores`;
+Esta é uma lista de componentes que podem ser integrados em sites utilizando a técnologia Tailwind. Foram dispostos diversos deles, das mais variadas cores 
+para a realização do teste de recoloração do filtro`;
 
 const Page = async () => {
   return (
@@ -22,7 +24,7 @@ const Page = async () => {
           <div className="flex flex-wrap gap-4">
             <Card className="text-[#31F533]" />
 
-            <Card className="text-[#E8EB28]" />
+            <Card className="text-[#FFFF00]" />
 
             <Card className="text-[#D5313B]" />
 
@@ -34,7 +36,7 @@ const Page = async () => {
           <div>
             <Navbar className="bg-[#31F533]" />
 
-            <Navbar className="bg-[#E8EB28]" />
+            <Navbar className="bg-[#FFFF00]" />
 
             <Navbar className="bg-[#D5313B]" />
 
@@ -46,7 +48,7 @@ const Page = async () => {
           <div className="flex flex-wrap gap-4">
             <Button className="bg-[#31F533]" />
 
-            <Button className="bg-[#E8EB28]" />
+            <Button className="bg-[#FFFF00]" />
 
             <Button className="bg-[#D5313B]" />
 

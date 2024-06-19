@@ -7,37 +7,8 @@ const daltonismTypeMap: { [key in DaltonismType]: number } = {
     Tritanopia: 3
 };
 
-const hexToRgb = (hex: string): number[] => {
-    hex = hex.replace(/^#/, '');
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return [r, g, b];
-};
-
 const rgbToHex = (rgb: number[]): string => {
     return `#${((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1)}`;
-};
-
-const rgbToLms = (rgb: number[]): number[] => {
-    const [r, g, b] = rgb.map(c => c / 255.0);
-
-    const l = 0.31399022 * r + 0.63951294 * g + 0.04649755 * b;
-    const m = 0.15537241 * r + 0.75789446 * g + 0.08670142 * b;
-    const s = 0.01775239 * r + 0.10944209 * g + 0.87256922 * b;
-
-    return [l, m, s];
-};
-
-const lmsToRgb = (lms: number[]): number[] => {
-    const [l, m, s] = lms;
-
-    const r = 5.47221206 * l - 4.6419601 * m + 0.16963708 * s;
-    const g = -1.1252419 * l + 2.29317094 * m - 0.1678952 * s;
-    const b = 0.02980165 * l - 0.19318073 * m + 1.16364789 * s;
-
-    return [r, g, b].map(c => Math.round(Math.max(0, Math.min(1, c)) * 255));
 };
 
 const isGrayishColor = (rgb: number[]): boolean => {
@@ -57,58 +28,150 @@ const isColorStandard = (rgb: number[]): boolean => {
     return !(r === 0 && g === 128 && b === 0);
 };
 
-function correctForDaltonism(rgb: number[], type: number): number[] {
+const isRedColor = (rgb: number[], threshold: number = 0.5): boolean => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    if (total === 0) return false;
+
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+    const bPercentage = b / total;
+
+    return rPercentage >= threshold && rPercentage > gPercentage && rPercentage > bPercentage;
+};
+
+const isGreenColor = (rgb: number[], threshold: number = 0.5): boolean => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    if (total === 0) return false;
+
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+    const bPercentage = b / total;
+
+    return gPercentage >= threshold && gPercentage > rPercentage && gPercentage > bPercentage;
+};
+
+const isYellowColor = (rgb: number[], threshold: number = 0.3): boolean => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    if (total === 0) return false;
+
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+    const bPercentage = b / total;
+
+    return rPercentage >= threshold && gPercentage >= threshold && bPercentage < threshold;
+};
+
+const applyProtanopiaCorrection = (rgb: number[]): number[] => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+
+    if (isRedColor(rgb)) {
+        return [Math.floor(255 * rPercentage), 0, Math.floor(255 * (1 - rPercentage))];
+    }
+    if (isGreenColor(rgb)) {
+        return [Math.floor(255 * gPercentage), Math.floor(192 * gPercentage), Math.floor(203 * gPercentage)];
+    }
+    return rgb;
+};
+
+const applyDeuteranopiaCorrection = (rgb: number[]): number[] => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+
+    if (isRedColor(rgb)) {
+        return [Math.floor(200 * rPercentage), 0, Math.floor(200 * (1 - rPercentage))];
+    }
+    if (isGreenColor(rgb)) {
+        return [Math.floor(200 * gPercentage), Math.floor(137 * gPercentage), Math.floor(153 * gPercentage)];
+    }
+    return rgb;
+};
+
+const applyTritanopiaCorrection = (rgb: number[]): number[] => {
+    const [r, g, b] = rgb;
+    const total = r + g + b;
+    const rPercentage = r / total;
+    const gPercentage = g / total;
+    const bPercentage = b / total;
+
+    if (isYellowColor(rgb)) {
+        return [Math.floor(246 * rPercentage), Math.floor(247 * gPercentage), Math.floor(190 * bPercentage)];
+    }
+    if (isGreenColor(rgb)) {
+        return [Math.floor(219 * gPercentage), Math.floor(112 * gPercentage), Math.floor(147 * gPercentage)];
+    }
+    return rgb;
+};
+
+const correctForDaltonism = (rgb: number[], type: number): number[] => {
     let correctionMatrix: number[][];
 
     switch (type) {
         case 1:  // Protanopia
+            return applyProtanopiaCorrection(rgb);
+        case 2: // Deuteranopia
+            return applyDeuteranopiaCorrection(rgb);
+        case 3: // Tritanopia
+            return applyTritanopiaCorrection(rgb);
+            break;
+        default:
+            throw new Error("Invalid daltonism type");
+    }
+};
+
+
+const originalStylesMapBackground = new Map<HTMLElement, { backgroundColor: string; }>();
+const originalStylesMapFont = new Map<HTMLElement, { color: string }>();
+const originalImages = new Map<HTMLImageElement, string>();
+
+const correctForDaltonismImage = (rgb: number[], type: number): number[] => {
+    let correctionMatrix: number[][];
+
+    switch (type) {
+        case 1: // Protanopia
             correctionMatrix = [
-                [0.0, 0.2, 1.0], 
-                [1.0, 0.0, 0.2], 
-                [0.2, 1.0, 1.0], 
+                [0.0, 0.2, 1.0], // Red to Cyan
+                [1.0, 0.0, 0.2], // Green to Magenta
+                [0.2, 1.0, 1.0], // Blue, Cyan and Yellow contrast
             ];
             break;
         case 2: // Deuteranopia
             correctionMatrix = [
-                [0.2, 1.0, 0.2], 
-                [0.2, 0.0, 1.0],
+                [0.2, 1.0, 0.2], // Green to Magenta
+                [0.2, 0.0, 1.0], // Blue, Cyan, Red and Yellow contrast
                 [1.0, 1.0, 0.2],
             ];
             break;
         case 3: // Tritanopia
             correctionMatrix = [
-                [0.2, 1.0, 1.0],
-                [0.2, 0.2, 1.0], 
-                [1.0, 0.2, 1.0],
+                [0.2, 1.0, 1.0], // Blue, Cyan and Yellow contrast
+                [0.2, 0.2, 1.0], // Yellow to Cyan
+                [1.0, 0.2, 1.0], // Red to Magenta
             ];
-
             break;
         default:
             throw new Error("Invalid daltonism type");
     }
 
-    return applyColorCorrection(rgb, correctionMatrix);
-}
+    const [r, g, b] = rgb;
+    const correctedR = Math.min(r * correctionMatrix[0][0] + g * correctionMatrix[0][1] + b * correctionMatrix[0][2]);
+    const correctedG = Math.min(r * correctionMatrix[1][0] + g * correctionMatrix[1][1] + b * correctionMatrix[1][2]);
+    const correctedB = Math.min(r * correctionMatrix[2][0] + g * correctionMatrix[2][1] + b * correctionMatrix[2][2]);
 
-function applyColorCorrection(rgb: number[], correctionMatrix: number[][]): number[] {
-    const correctedColor = [
-        rgb[0] * correctionMatrix[0][0] + rgb[1] * correctionMatrix[0][1] + rgb[2] * correctionMatrix[0][2],
-        rgb[0] * correctionMatrix[1][0] + rgb[1] * correctionMatrix[1][1] + rgb[2] * correctionMatrix[1][2],
-        rgb[0] * correctionMatrix[2][0] + rgb[1] * correctionMatrix[2][1] + rgb[2] * correctionMatrix[2][2]
-    ];
-
-    const correctedColorClamped = correctedColor.map(value => Math.max(0, Math.min(255, value)));
-
-    return correctedColorClamped;
-}
-
-const originalStylesMapBackground = new Map<HTMLElement, { backgroundColor: string; }>();
-const originalStylesMapFont = new Map<HTMLElement, { color: string }>();
+    return [correctedR, correctedG, correctedB];
+};
 
 export const applyDaltonismCorrection = (type: DaltonismType) => {
     const daltonismType = daltonismTypeMap[type];
 
-    if (originalStylesMapBackground.size === 0 && originalStylesMapFont.size === 0) {
+    if (originalStylesMapBackground.size === 0 && originalStylesMapFont.size === 0 && originalImages.size === 0) {
         document.querySelectorAll("*").forEach((element) => {
             const htmlElement = element as HTMLElement;
             const style = window.getComputedStyle(htmlElement);
@@ -132,6 +195,13 @@ export const applyDaltonismCorrection = (type: DaltonismType) => {
                 if (!isWhiteOrBlack(textColorRgb) && !isGrayishColor(textColorRgb) && isColorStandard(textColorRgb)) {
                     originalStylesMapFont.set(htmlElement, { color });
                 }
+            }
+        });
+
+        document.querySelectorAll("img").forEach((imgElement) => {
+            const img = imgElement as HTMLImageElement;
+            if (img.src) {
+                originalImages.set(img, img.src);
             }
         });
     }
@@ -170,8 +240,44 @@ export const applyDaltonismCorrection = (type: DaltonismType) => {
         }
     });
 
+    originalImages.forEach((src, imgElement) => {
+        if (daltonismType !== 0) {
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.src = src;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                if (ctx) {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                    const data = imageData.data;
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const rgb = [data[i], data[i + 1], data[i + 2]];
+                        const correctedRgb = correctForDaltonismImage(rgb, daltonismType);
+
+                        data[i] = correctedRgb[0];
+                        data[i + 1] = correctedRgb[1];
+                        data[i + 2] = correctedRgb[2];
+                    }
+
+                    ctx.putImageData(imageData, 0, 0);
+                    imgElement.src = canvas.toDataURL();
+                }
+            };
+        } else {
+            imgElement.src = src;
+        }
+    });
+
     if (daltonismType === 0) {
         originalStylesMapBackground.clear();
         originalStylesMapFont.clear();
+        originalImages.clear();
     }
 };
