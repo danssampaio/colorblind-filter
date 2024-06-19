@@ -20,37 +20,29 @@ const rgbToHex = (rgb: number[]): string => {
     return `#${((1 << 24) + (rgb[0] << 16) + (rgb[1] << 8) + rgb[2]).toString(16).slice(1)}`;
 };
 
-const rgbToXyz = (rgb: number[]): number[] => {
-    const [r, g, b] = rgb.map((c) => c / 255.0);
+const rgbToLms = (rgb: number[]): number[] => {
+    const [r, g, b] = rgb.map(c => c / 255.0);
 
-    const rLinear = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-    const gLinear = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-    const bLinear = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+    const l = 0.31399022 * r + 0.63951294 * g + 0.04649755 * b;
+    const m = 0.15537241 * r + 0.75789446 * g + 0.08670142 * b;
+    const s = 0.01775239 * r + 0.10944209 * g + 0.87256922 * b;
 
-    const x = rLinear * 0.4124 + gLinear * 0.3576 + bLinear * 0.1805;
-    const y = rLinear * 0.2126 + gLinear * 0.7152 + bLinear * 0.0722;
-    const z = rLinear * 0.0193 + gLinear * 0.1192 + bLinear * 0.9505;
-
-    return [x, y, z];
+    return [l, m, s];
 };
 
-const xyzToRgb = (xyz: number[]): number[] => {
-    const [x, y, z] = xyz;
+const lmsToRgb = (lms: number[]): number[] => {
+    const [l, m, s] = lms;
 
-    let r = x * 3.2406 + y * -1.5372 + z * -0.4986;
-    let g = x * -0.9689 + y * 1.8758 + z * 0.0415;
-    let b = x * 0.0557 + y * -0.204 + z * 1.057;
+    const r = 5.47221206 * l - 4.6419601 * m + 0.16963708 * s;
+    const g = -1.1252419 * l + 2.29317094 * m - 0.1678952 * s;
+    const b = 0.02980165 * l - 0.19318073 * m + 1.16364789 * s;
 
-    const rCorrected = r > 0.0031308 ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : 12.92 * r;
-    const gCorrected = g > 0.0031308 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : 12.92 * g;
-    const bCorrected = b > 0.0031308 ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : 12.92 * b;
-
-    return [rCorrected, gCorrected, bCorrected].map((c) => Math.min(255, Math.max(0, Math.round(c * 255))));
+    return [r, g, b].map(c => Math.round(Math.max(0, Math.min(1, c)) * 255));
 };
 
 const isGrayishColor = (rgb: number[]): boolean => {
     const [r, g, b] = rgb;
-    const threshold = 15;
+    const threshold = 30;
 
     return Math.abs(r - g) < threshold && Math.abs(r - b) < threshold && Math.abs(g - b) < threshold;
 };
@@ -65,109 +57,121 @@ const isColorStandard = (rgb: number[]): boolean => {
     return !(r === 0 && g === 128 && b === 0);
 };
 
-const correctForDaltonism = (hexColor: string, type: number): string => {
-    const rgb = hexToRgb(hexColor);
-    const xyz = rgbToXyz(rgb);
-
-    let correctionMatrix;
-    let lowCorrectionMatrix, highCorrectionMatrix;
+function correctForDaltonism(rgb: number[], type: number): number[] {
+    let correctionMatrix: number[][];
 
     switch (type) {
-        case 1: // Protanopia
-            lowCorrectionMatrix = [
-                [0.6, 0.4, 0],
-                [0.3, 0.7, 0],
-                [0, 0.3, 0.7],
-            ];
-            highCorrectionMatrix = [
-                [0, 0.8, 0.2],
-                [0, 0.7, 0.3],
-                [0, 0.2, 0.8],
+        case 1:  // Protanopia
+            correctionMatrix = [
+                [0.0, 0.2, 1.0], 
+                [1.0, 0.0, 0.2], 
+                [0.2, 1.0, 1.0], 
             ];
             break;
         case 2: // Deuteranopia
-            lowCorrectionMatrix = [
-                [0.7, 0.3, 0],
-                [0.4, 0.6, 0],
-                [0, 0.2, 0.8],
-            ];
-            highCorrectionMatrix = [
-                [0.6, 0.4, 0],
-                [0, 1, 0],
-                [0, 0.2, 0.8],
+            correctionMatrix = [
+                [0.2, 1.0, 0.2], 
+                [0.2, 0.0, 1.0],
+                [1.0, 1.0, 0.2],
             ];
             break;
         case 3: // Tritanopia
-            lowCorrectionMatrix = [
-                [0.95, 0.05, 0],
-                [0, 0.43, 0.57],
-                [0, 0.48, 0.52],
+            correctionMatrix = [
+                [0.2, 1.0, 1.0],
+                [0.2, 0.2, 1.0], 
+                [1.0, 0.2, 1.0],
             ];
-            highCorrectionMatrix = [
-                [0.95, 0.05, 0],
-                [0, 0.43, 0.57],
-                [0, 1, 0],
-            ];
+
             break;
         default:
             throw new Error("Invalid daltonism type");
     }
 
-    const intensity = rgb.reduce((acc, val) => acc + val, 0) / (255 * 3);
-    const intensityThreshold = 0.1;
-    correctionMatrix = intensity < intensityThreshold ? lowCorrectionMatrix : highCorrectionMatrix;
+    return applyColorCorrection(rgb, correctionMatrix);
+}
 
-    const xyzCorrected = [
-        correctionMatrix[0][0] * xyz[0] + correctionMatrix[0][1] * xyz[1] + correctionMatrix[0][2] * xyz[2],
-        correctionMatrix[1][0] * xyz[0] + correctionMatrix[1][1] * xyz[1] + correctionMatrix[1][2] * xyz[2],
-        correctionMatrix[2][0] * xyz[0] + correctionMatrix[2][1] * xyz[1] + correctionMatrix[2][2] * xyz[2]
+function applyColorCorrection(rgb: number[], correctionMatrix: number[][]): number[] {
+    const correctedColor = [
+        rgb[0] * correctionMatrix[0][0] + rgb[1] * correctionMatrix[0][1] + rgb[2] * correctionMatrix[0][2],
+        rgb[0] * correctionMatrix[1][0] + rgb[1] * correctionMatrix[1][1] + rgb[2] * correctionMatrix[1][2],
+        rgb[0] * correctionMatrix[2][0] + rgb[1] * correctionMatrix[2][1] + rgb[2] * correctionMatrix[2][2]
     ];
 
-    const rgbCorrected = xyzToRgb(xyzCorrected);
-    return rgbToHex(rgbCorrected);
-};
+    const correctedColorClamped = correctedColor.map(value => Math.max(0, Math.min(255, value)));
 
-const originalStylesMap = new Map<HTMLElement, string>();
+    return correctedColorClamped;
+}
+
+const originalStylesMapBackground = new Map<HTMLElement, { backgroundColor: string; }>();
+const originalStylesMapFont = new Map<HTMLElement, { color: string }>();
 
 export const applyDaltonismCorrection = (type: DaltonismType) => {
     const daltonismType = daltonismTypeMap[type];
 
-    if (originalStylesMap.size === 0) {
+    if (originalStylesMapBackground.size === 0 && originalStylesMapFont.size === 0) {
         document.querySelectorAll("*").forEach((element) => {
             const htmlElement = element as HTMLElement;
             const style = window.getComputedStyle(htmlElement);
             const backgroundColor = style.backgroundColor;
+            const color = style.color;
 
-            if (backgroundColor) {
-                const rgb = backgroundColor
+            if (backgroundColor && color) {
+                const bgRgb = backgroundColor
                     .replace(/[^\d,]/g, "")
                     .split(",")
                     .map(Number);
 
-                if (!isWhiteOrBlack(rgb) && !isGrayishColor(rgb) && isColorStandard(rgb)) {
-                    originalStylesMap.set(htmlElement, backgroundColor);
+                const textColorRgb = color
+                    .replace(/[^\d,]/g, "")
+                    .split(",")
+                    .map(Number);
+
+                if (!isWhiteOrBlack(bgRgb) && !isGrayishColor(bgRgb) && isColorStandard(bgRgb)) {
+                    originalStylesMapBackground.set(htmlElement, { backgroundColor });
+                }
+                if (!isWhiteOrBlack(textColorRgb) && !isGrayishColor(textColorRgb) && isColorStandard(textColorRgb)) {
+                    originalStylesMapFont.set(htmlElement, { color });
                 }
             }
         });
     }
 
-    originalStylesMap.forEach((originalColor, htmlElement) => {
-        const rgb = originalColor
+    originalStylesMapBackground.forEach((originalColors, htmlElement) => {
+        const originalBgRgb = originalColors.backgroundColor
             .replace(/[^\d,]/g, "")
             .split(",")
             .map(Number);
 
-        const hexColor = rgbToHex(rgb);
+        if (daltonismType !== 0) {
+            const correctedBgRgb = correctForDaltonism(originalBgRgb, daltonismType);
+
+            const correctedBgColor = rgbToHex(correctedBgRgb);
+
+            htmlElement.style.backgroundColor = correctedBgColor;
+        } else {
+            htmlElement.style.backgroundColor = originalColors.backgroundColor;
+        }
+    });
+
+    originalStylesMapFont.forEach((originalColors, htmlElement) => {
+        const originalColorRgb = originalColors.color
+            .replace(/[^\d,]/g, "")
+            .split(",")
+            .map(Number);
 
         if (daltonismType !== 0) {
-            const correctedColor = correctForDaltonism(hexColor, daltonismType);
-            htmlElement.style.backgroundColor = correctedColor;
+            const correctedColorRgb = correctForDaltonism(originalColorRgb, daltonismType);
+
+            const correctedBgFont = rgbToHex(correctedColorRgb);
+
+            htmlElement.style.color = correctedBgFont;
         } else {
-            htmlElement.style.backgroundColor = originalColor;
+            htmlElement.style.color = originalColors.color;
         }
     });
 
     if (daltonismType === 0) {
-        originalStylesMap.clear();
+        originalStylesMapBackground.clear();
+        originalStylesMapFont.clear();
     }
 };
