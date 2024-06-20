@@ -1,6 +1,6 @@
 "use client";
 
-import imageFunctions  from "./imageColorUtils";
+import imageFunctions from "./imageColorUtils";
 import { elementsFunctions } from "./elementsColorUtils";
 
 type DaltonismType = "Protanopia" | "Deuteranopia" | "Tritanopia" | "Padrao";
@@ -18,20 +18,22 @@ const rgbToHex = (rgb: number[]): string => {
 
 const isGrayishColor = (rgb: number[]): boolean => {
     const [r, g, b] = rgb;
-    const threshold = 30;
-
-    return Math.abs(r - g) < threshold && Math.abs(r - b) < threshold && Math.abs(g - b) < threshold;
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    return (max - min) < 30;
 };
 
 const isWhiteOrBlack = (rgb: number[]): boolean => {
     const [r, g, b] = rgb;
-    return (r > 250 && g > 250 && b > 250) || (r < 5 && g < 5 && b < 5);
-};
+    const whiteThreshold = 240;
+    const blackThreshold = 15;
 
-// const isColorStandard = (rgb: number[]): boolean => {
-//     const [r, g, b] = rgb;
-//     return !(r === 0 && g === 128 && b === 0);
-// };
+    const isWhite = r > whiteThreshold && g > whiteThreshold && b > whiteThreshold;
+
+    const isBlack = r < blackThreshold && g < blackThreshold && b < blackThreshold;
+
+    return isWhite || isBlack;
+};
 
 const correctForDaltonism = (rgb: number[], type: number): number[] => {
 
@@ -90,7 +92,7 @@ export const applyDaltonismCorrection = (type: DaltonismType) => {
                 if (!isWhiteOrBlack(bgRgb) && !isGrayishColor(bgRgb)) {
                     originalStylesMapBackground.set(htmlElement, { backgroundColor });
                 }
-                
+
                 if (!isWhiteOrBlack(textColorRgb) && !isGrayishColor(textColorRgb)) {
                     originalStylesMapFont.set(htmlElement, { color });
                 }
