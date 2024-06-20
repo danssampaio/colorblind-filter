@@ -28,7 +28,7 @@ export const ColorblindnessFilter: React.FC<ColorblindnessFilterProps> = ({ onCh
         <main>
             <div className="p-2 border-black shadow rounded-lg">
                 Filtro Daltonico
-                <select className="ml-2 rounded bg-[#D53B30]" value={colorblindnessType} onChange={handleChange}>
+                <select className="ml-2 rounded" value={colorblindnessType} onChange={handleChange}>
                     <option value="Padrao">Padrão</option>
                     <option value="Protanopia">Protanopia</option>
                     <option value="Deuteranopia">Deuteranopia</option>
