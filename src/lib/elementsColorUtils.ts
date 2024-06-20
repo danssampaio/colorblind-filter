@@ -61,7 +61,7 @@ export function elementsFunctions() {
             return [Math.floor(200 * rPercentage), 0, Math.floor(200 * (1 - rPercentage))];
         }
         if (isGreenColor(rgb)) {
-            return [Math.floor(200 * gPercentage), Math.floor(137 * gPercentage), Math.floor(153 * gPercentage)];
+            return [Math.floor((128 * (1 - gPercentage))), (128 * (1 - gPercentage)), Math.floor(128 * (1-gPercentage))];
         }
         return rgb;
     };
@@ -77,7 +77,7 @@ export function elementsFunctions() {
             return [Math.floor(246 * rPercentage), Math.floor(247 * gPercentage), Math.floor(190 * bPercentage)];
         }
         if (isGreenColor(rgb)) {
-            return [Math.floor(219 * gPercentage), Math.floor(112 * gPercentage), Math.floor(147 * gPercentage)];
+            return [Math.floor((128 * (1 - gPercentage))), (128 * (1 - gPercentage)), Math.floor(128 * (1-gPercentage))];
         }
         return rgb;
     };

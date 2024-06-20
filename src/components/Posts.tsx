@@ -9,7 +9,7 @@ Diversas imagens utilizadas para o teste de recoloração, dentre elas, imagens 
 
 const Posts = async () => {
   return (
-    <div className="prose lg:prose-lg dark:prose-invert m-auto mt-20 mb-10">
+    <div className="lg:prose-lg dark:prose-invert mt-20 mb-10">
       <Markdown>{content}</Markdown>
       <div>
         <div>
@@ -66,13 +66,13 @@ const Posts = async () => {
           </div>
           <div className="grid grid-cols-2 gap-4 p-4">
             <img
-              src="/teste-1.png"
+              src="/dalle-5.png"
               alt="homens com roupas coloridas"
               className="w-full h-auto"
             />
-            <img src="/teste-2.png" alt="crianças com frutas na mão" className="w-full h-auto" />
-            <img src="/teste-3.png" alt="diversas frutas sobre tecido no parque" className="w-full h-auto" />
-            <img src="/teste-4.png" alt="frutas sobre cesta" className="w-full h-auto" />
+            <img src="/dalle-2.png" alt="crianças com frutas na mão" className="w-full h-auto" />
+            <img src="/dalle-1.png" alt="diversas frutas sobre tecido no parque" className="w-full h-auto" />
+            <img src="/dalle-4.png" alt="frutas sobre cesta" className="w-full h-auto" />
           </div>
         </div>
       </div>
