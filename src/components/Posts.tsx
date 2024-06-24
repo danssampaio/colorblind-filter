@@ -30,7 +30,6 @@ const Posts = async () => {
               alt="Ishihara 74"
               className="w-full h-auto"
             />
-            <img src="/ishihara_2.png" alt="Ishihara 2" className="w-full h-auto" />
             <img src="/ishihara_6.png" alt="Ishihara 6" className="w-full h-auto" />
             <img src="/ishihara_42.png" alt="Ishihara 4" className="w-full h-auto" />
           </div>
