@@ -38,7 +38,7 @@ export const Navigation: FunctionComponent = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed">
+    <nav>
       <div className="hidden md:flex items-center">
         {menuItems.map((item) => (
           <div key={item.href} className="ml-4 md:ml-8">
