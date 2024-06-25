@@ -1,34 +1,40 @@
-# A Next.js 14 Blog using Server Components - backed by Wisp CMS<!-- omit in toc -->
+# Projeto Next.js 14 Corretor de Cores para Níveis de Daltonismo
 
-[![Demo Travel Blog on Next.js 14](https://imagedelivery.net/lLmNeOP7HXG0OqaG97wimw/clvlugru90000o4g8ahxp069s/32432ccf-57a8-4992-8c51-e5a47e110018.png/public "Demo Travel Blog on Next.js 14")](https://nextjs-blog-cms-wisp.vercel.app/)
+Este repositório contém o código-fonte do projeto de TCC intitulado "Acessibilidade Web: Desenvolvimento de um Filtro Corretivo de Cores para Pessoas com Condição de Daltonismo", desenvolvido por Dan Souza Sampaio na Universidade Estadual de Santa Cruz - UESC.
 
-**Featured Links**
-- [Demo Blog](https://nextjs-blog-cms-wisp.vercel.app/)
-- [Feature Walkthrough](https://youtu.be/7wVYAGhDmdY)
-- [Editing Experience](https://youtu.be/uSKO8J38T98)
+## Introdução
 
-This starter is a blog that uses [Next.js 14](https://nextjs.org/docs/getting-started/installation) for the frontend and [Wisp](https://wisp.blog/?utm_source=github&utm_medium=web&utm_campaign=nextjs-blog-cms-wisp) to handle its content.
+A acessibilidade web é crucial para garantir que todos os indivíduos, independentemente de suas condições, possam utilizar a internet de maneira eficaz. Este projeto visa desenvolver um filtro corretivo de cores para ajudar pessoas com daltonismo a navegar na web de forma mais acessível.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FWisp-CMS%2Fnextjs-blog-cms-wisp&env=NEXT_PUBLIC_BLOG_ID&envDescription=Blog%20ID%20obtained%20from%20the%20Setup%20Page%20on%20Wisp%20CMS&demo-title=Demo%20Travel%20Blog&demo-description=Demo%20travel%20blog%20using%20Nextjs%2014%20Server%20Component&demo-url=https%3A%2F%2Fnextjs-blog-cms-wisp.vercel.app%2F&demo-image=https%3A%2F%2Fimagedelivery.net%2FlLmNeOP7HXG0OqaG97wimw%2Fclvlugru90000o4g8ahxp069s%2F32432ccf-57a8-4992-8c51-e5a47e110018.png%2Fpublic)
+## Objetivos
 
-## Features
+### Objetivo Geral
+Desenvolver um filtro corretivo de cores para melhorar a acessibilidade web para pessoas com daltonismo.
 
-- Beautiful blog starter kit with server rendering using Next.js 14 Server Component
-- Filter blog posts by tags
-- About page
+### Objetivos Específicos
+- Estudar os diferentes tipos de daltonismo.
+- Desenvolver técnicas de correção de cores utilizando transformações lineares e fuzzyficação.
+- Implementar e testar o filtro em um ambiente web.
+- Avaliar a eficácia do filtro através de testes de usabilidade.
+
+
+## Principais Features
+
+- Filtro corretivo para níveis de daltonismo
 - Dark mode
 
-## Technologies
+## Tecnologias
 
+- [React](https://pt-br.react.dev/)
 - [Next.js 14 (App Router)](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
 - [ES Lint](https://eslint.org/)
 - [Typescript](https://www.typescriptlang.org/)
 
-## Getting Started
+## Start do Projeto
 
-First, run the development server:
+Primeiro, execute o servidor:
 
 ```bash
 npm run dev
@@ -40,8 +46,4 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Getting Help
-
-Full documentation on how to get started on wisp as well as this starter kit is available on [wisp's documentation site](https://docs.wisp.blog/)
+Abra [http://localhost:3000](http://localhost:3000) com seu navegador para ver o resultado.
