@@ -1,40 +1,39 @@
-# Projeto Next.js 14 Corretor de Cores para Níveis de Daltonismo
+# Next.js 14 Project - Color Corrective Filter for Different Levels of Colorblindness
 
-Este repositório contém o código-fonte do projeto de TCC intitulado "Acessibilidade Web: Desenvolvimento de um Filtro Corretivo de Cores para Pessoas com Condição de Daltonismo", desenvolvido por Dan Souza Sampaio na Universidade Estadual de Santa Cruz - UESC.
+This repository contains the source code for my undergraduate thesis project titled Acessibilidade Web: Desenvolvimento de um Filtro Corretivo de Cores para Pessoas com Condição de Daltonismo (Web Accessibility: Development of a Color Corrective Filter for People with Colorblindness), developed by me, Dan Souza Sampaio, at the State University of Santa Cruz - UESC.
 
-## Introdução
+## Introduction
 
-A acessibilidade web é crucial para garantir que todos os indivíduos, independentemente de suas condições, possam utilizar a internet de maneira eficaz. Este projeto visa desenvolver um filtro corretivo de cores para ajudar pessoas com daltonismo a navegar na web de forma mais acessível.
+Web accessibility is crucial to ensure that all individuals, regardless of their conditions, can use the internet effectively. This project aims to develop a color corrective filter to help people with colorblindness navigate the web more accessibly.
 
-## Objetivos
+## Objectives
 
-### Objetivo Geral
-Desenvolver um filtro corretivo de cores para melhorar a acessibilidade web para pessoas com daltonismo.
+### General Objective
+To develop a color corrective filter to improve web accessibility for people with colorblindness.
 
-### Objetivos Específicos
-- Estudar os diferentes tipos de daltonismo.
-- Desenvolver técnicas de correção de cores utilizando transformações lineares e fuzzyficação.
-- Implementar e testar o filtro em um ambiente web.
-- Avaliar a eficácia do filtro através de testes de usabilidade.
+### Specific Objectives
+- Study the different types of colorblindness.
+- Develop color correction techniques using linear transformations and fuzzification.
+- Implement and test the filter in a web environment.
+- Evaluate the effectiveness of the filter through usability testing.
 
+## Key Features
 
-## Principais Features
-
-- Filtro corretivo para níveis de daltonismo
+- Corrective filter for different levels of colorblindness
 - Dark mode
 
-## Tecnologias
+## Technologies
 
-- [React](https://pt-br.react.dev/)
+- [React](https://react.dev/)
 - [Next.js 14 (App Router)](https://nextjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Shadcn UI](https://ui.shadcn.com/)
-- [ES Lint](https://eslint.org/)
-- [Typescript](https://www.typescriptlang.org/)
+- [ESLint](https://eslint.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 
-## Start do Projeto
+## Project Start
 
-Primeiro, execute o servidor:
+First, run the server:
 
 ```bash
 npm run dev
@@ -44,6 +43,5 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
 
-Abra [http://localhost:3000](http://localhost:3000) com seu navegador para ver o resultado.
+Open http://localhost:3000 with your browser to see the result.
