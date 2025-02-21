@@ -1,11 +1,10 @@
 "use client";
 import { FunctionComponent } from "react";
-import { DarkModeToggle } from "./DarkModeToggle";
 import { config } from "@/config";
 
 export const Footer: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-center py-12 px-5 bg-[#D51A24]">
+    <section className="flex items-center justify-center py-6 px-5 bg-cyan-500">
       <div>
         © {config.blog.copyright} {new Date().getFullYear()}
       </div>

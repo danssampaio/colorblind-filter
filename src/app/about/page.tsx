@@ -1,7 +1,5 @@
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { config } from "@/config";
-import { signOgImageUrl } from "@/lib/og-image";
+import { Footer } from "../components/footer";
+import { Header } from "../components/header";
 import Markdown from "react-markdown";
 
 const content = `# Sobre o Projeto
@@ -21,13 +19,6 @@ export async function generateMetadata() {
     openGraph: {
       title: "Sobre o Projeto",
       description: "Saiba mais sobre nosso projeto de correção de cores para daltonismo, desenvolvido como parte de um TCC",
-      images: [
-        signOgImageUrl({
-          title: "Correção de Cores",
-          label: "Sobre o Projeto",
-          brand: config.blog.name,
-        }),
-      ],
     },
   };
 }

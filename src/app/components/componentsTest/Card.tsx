@@ -4,7 +4,7 @@ interface CardProps {
   className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ className }) => {
+const Card = ({ className }: CardProps) => {
   return (
       <div className="block rounded-lg bg-white p-6 dark:bg-neutral-700 border border-dark shadow-md">
         <h5 className={`mb-2 text-md font-medium leading-tight ${className}`}>

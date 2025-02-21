@@ -1,12 +1,9 @@
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { config } from "@/config";
-import { signOgImageUrl } from "@/lib/og-image";
+import { Footer } from "../components/footer";
+import { Header } from "../components/header";
 import Markdown from "react-markdown";
-import Navbar from "@/components/componentsTest/Navbar";
-import Button from "@/components/componentsTest/Button";
-import Card from "@/components/componentsTest/Card";
-import Image from "next/image";
+import Navbar from "@/app/components/componentsTest/Navbar";
+import Button from "@/app/components/componentsTest/Button";
+import Card from "@/app/components/componentsTest/Card";
 
 const content = `# Lista de Componentes
 

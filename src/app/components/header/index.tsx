@@ -1,21 +1,21 @@
 "use client";
+
+import { cn } from "@/lib/utils";
+import { Menu } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FunctionComponent } from "react";
+import { ColorblindFilter } from "../colorblind-filter";
+import { DarkModeToggle } from "../dark-mode-toggle";
+import { applyDaltonismCorrection } from "../../../lib/colorUtils";
+import Image from "next/image";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { config } from "@/config";
-import { cn } from "@/lib/utils";
-import { Menu } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FunctionComponent } from "react";
-import { ColorblindnessFilter } from "./ColorblindnessFilter";
-import { DarkModeToggle } from "./DarkModeToggle";
-import { applyDaltonismCorrection } from '../lib/colorUtils';
-
+} from "../ui/sheet";
 
 interface MenuItem {
   name: string;
@@ -25,14 +25,15 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { name: "Home", href: "/" },
-  { name: "Componentes", href: "/componentsPage" },
+  { name: "Componentes", href: "/components-page" },
   { name: "About", href: "/about" },
 ];
 
-const handleColorblindnessChange = (type: "Protanopia" | "Deuteranopia" | "Tritanopia" | "Padrao") => {
+const handleColorblindnessChange = (
+  type: "Protanopia" | "Deuteranopia" | "Tritanopia" | "Padrao"
+) => {
   applyDaltonismCorrection(type);
 };
-
 
 export const Navigation: FunctionComponent = () => {
   const pathname = usePathname();
@@ -55,7 +56,7 @@ export const Navigation: FunctionComponent = () => {
           </div>
         ))}
         <div className="ml-6">
-          <ColorblindnessFilter onChange={handleColorblindnessChange} />
+          <ColorblindFilter onChange={handleColorblindnessChange} />
         </div>
         <div className="ml-6">
           <DarkModeToggle />
@@ -71,19 +72,19 @@ export const Navigation: FunctionComponent = () => {
               <SheetDescription>
                 {menuItems.map((item) => (
                   <a
-                  key={item.href}
-                  href={item.href}
-                  target={item.openInNewTab ? "_blank" : "_self"}
-                  className={cn(
-                    "block py-2",
-                    pathname === item.href && "font-semibold"
+                    key={item.href}
+                    href={item.href}
+                    target={item.openInNewTab ? "_blank" : "_self"}
+                    className={cn(
+                      "block py-2",
+                      pathname === item.href && "font-semibold"
                     )}
-                    >
+                  >
                     {item.name}
                   </a>
                 ))}
                 <div className="ml-6">
-                  <ColorblindnessFilter onChange={handleColorblindnessChange} />
+                  <ColorblindFilter onChange={handleColorblindnessChange} />
                 </div>
                 <div className="ml-6">
                   <DarkModeToggle />
@@ -99,14 +100,21 @@ export const Navigation: FunctionComponent = () => {
 
 export const Header: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-between py-5 px-5 bg-[#D51A24]">
+    <section className="flex items-center justify-between px-5 bg-cyan-500">
       <Link href="/">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
-          {config.blog.name}
+          <div className="flex items-center justify-center w-[100px] h-[80px]">
+            <Image
+              src={"/colorblind-filter.svg"}
+              alt={"logo colorblind Filter"}
+              width={0}
+              height={0}
+              className="w-auto h-auto"
+            />
+          </div>
         </h1>
       </Link>
       <Navigation />
     </section>
   );
 };
-

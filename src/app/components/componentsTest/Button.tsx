@@ -4,7 +4,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ className }) => {
+const Button = ({ className } : ButtonProps) => {
   return (
     <div>
       <div className="flex items-center gap-x-1">

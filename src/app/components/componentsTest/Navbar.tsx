@@ -4,7 +4,7 @@ interface NavbarProps {
   className?: string;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ className }) => {
+const Navbar = ({ className }: NavbarProps) => {
   return (
     <nav
       className={`sticky top-0 z-10 block w-full max-w-full px-4 my-3 py-2 text-white border rounded-none shadow-md h-max border-white/80 0 backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4 ${className}`}

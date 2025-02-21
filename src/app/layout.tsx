@@ -1,6 +1,5 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/app/components/theme-provider";
 import { config } from "@/config";
-import { signOgImageUrl } from "@/lib/og-image";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -18,12 +17,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: config.blog.metadata.title.default,
     description: config.blog.metadata.description,
-    images: [
-      signOgImageUrl({
-        title: config.blog.name,
-      }),
-    ]
-  }
+  },
+  icons: config.blog.metadata.icons,
 };
 
 export default function RootLayout({
