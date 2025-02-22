@@ -1,9 +1,11 @@
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { config } from "@/config";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/utils/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "./components/header";
+import { Footer } from "./components/footer";
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -34,6 +36,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
+        <Header />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -42,6 +45,7 @@ export default function RootLayout({
         >
           <main>{children}</main>
         </ThemeProvider>
+        <Footer />
       </body>
     </html>
   );
