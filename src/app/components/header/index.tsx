@@ -1,13 +1,13 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/utils/utils";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FunctionComponent } from "react";
 import { ColorblindFilter } from "../colorblind-filter";
 import { DarkModeToggle } from "../dark-mode-toggle";
-import { applyDaltonismCorrection } from "../../../lib/colorUtils";
+import { applyDaltonismCorrection } from "../../utils/colorUtils";
 import Image from "next/image";
 import {
   Sheet,
