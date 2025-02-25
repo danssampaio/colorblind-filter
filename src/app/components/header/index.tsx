@@ -101,7 +101,7 @@ export const Navigation: FunctionComponent = () => {
 
 export const Header: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-between px-5 bg-cyan-500">
+    <section className="flex items-center justify-between px-5 bg-neutral-300 shadow shadow-neutral-500">
       <Link href="/">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
           <div className="flex items-center justify-center w-[100px] h-[80px]">
