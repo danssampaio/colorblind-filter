@@ -1,5 +1,3 @@
-"use client";
-
 import imageFunctions from "./imageColorUtils";
 import { elementsFunctions } from "./elementsColorUtils";
 
@@ -38,11 +36,11 @@ const isWhiteOrBlack = (rgb: number[]): boolean => {
 const correctForDaltonism = (rgb: number[], type: number): number[] => {
 
     switch (type) {
-        case 1:  // Protanopia
+        case 1:
             return elementsFunctions().applyProtanopiaCorrection(rgb);
-        case 2: // Deuteranopia
+        case 2:
             return elementsFunctions().applyDeuteranopiaCorrection(rgb);
-        case 3: // Tritanopia
+        case 3:
             return elementsFunctions().applyTritanopiaCorrection(rgb);
         default:
             throw new Error("Invalid daltonism type");
@@ -57,11 +55,11 @@ const originalImages = new Map<HTMLImageElement, string>();
 const correctForDaltonismImage = (rgb: number[], type: number): number[] => {
 
     switch (type) {
-        case 1:  // Protanopia
+        case 1:
             return imageFunctions().applyProtanopiaCorrection(rgb);
-        case 2: // Deuteranopia
+        case 2:
             return imageFunctions().applyDeuteranopiaCorrection(rgb);
-        case 3: // Tritanopia
+        case 3:
             return imageFunctions().applyTritanopiaCorrection(rgb);
         default:
             throw new Error("Invalid daltonism type");
