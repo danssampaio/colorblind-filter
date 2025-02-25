@@ -1,9 +1,9 @@
-import Posts from "@/app/components/posts";
+import Home from "@/app/components/home";
 
 const Page = async () => {
   return (
     <>
-      <Posts />
+      <Home />
     </>
   );
 };
