@@ -1,5 +1,4 @@
-import { Footer } from "../components/footer";
-import { Header } from "../components/header";
+
 import Markdown from "react-markdown";
 
 const content = `# Sobre o Projeto
@@ -15,10 +14,12 @@ Equipe do Projeto de Correção de Cores`;
 export async function generateMetadata() {
   return {
     title: "Sobre o Projeto",
-    description: "Saiba mais sobre nosso projeto de correção de cores para daltonismo, desenvolvido como parte de um TCC",
+    description:
+      "Saiba mais sobre nosso projeto de correção de cores para daltonismo, desenvolvido como parte de um TCC",
     openGraph: {
       title: "Sobre o Projeto",
-      description: "Saiba mais sobre nosso projeto de correção de cores para daltonismo, desenvolvido como parte de um TCC",
+      description:
+        "Saiba mais sobre nosso projeto de correção de cores para daltonismo, desenvolvido como parte de um TCC",
     },
   };
 }
@@ -26,11 +27,9 @@ export async function generateMetadata() {
 const Page = async () => {
   return (
     <div>
-      <Header />
       <div className="prose lg:prose-lg dark:prose-invert m-auto mt-20 mb-10 blog-content container px-5">
         <Markdown>{content}</Markdown>
       </div>
-      <Footer />
     </div>
   );
 };
