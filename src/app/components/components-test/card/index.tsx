@@ -4,12 +4,12 @@ import React from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 
 type CardProps = {
-  title: string;
+  type: string;
   description: string;
   color: string;
 };
 
-const Card = ({ title, description, color }: CardProps) => {
+const Card = ({ type, description, color }: CardProps) => {
   return (
     <div className="flex flex-col rounded-xl bg-gray-100 shadow-lg">
       <div className="flex justify-center bg-gray-300 rounded-t-xl">
@@ -18,7 +18,7 @@ const Card = ({ title, description, color }: CardProps) => {
           width={300}
           height={300}
           alt="logo colorblind filter"
-          className="w-auto h-auto object-cover p-5"
+          className="h-auto object-cover p-5"
         />
       </div>
       <div
@@ -27,8 +27,9 @@ const Card = ({ title, description, color }: CardProps) => {
         <p className="mb-4 text-sm text-neutral-700 line-clamp-4">
           {description}
         </p>
-        <div className="flex justify-end">
-          <button className="flex items-center gap-2 text-sm hover:text-gray-900 text-gray-600">
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-gray-800">{type}</p>
+          <button className="flex items-center gap-2 text-sm hover:text-gray-500 text-gray-800">
             Ver Notícia <HiArrowNarrowRight />
           </button>
         </div>
