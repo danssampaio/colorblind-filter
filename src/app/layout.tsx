@@ -36,16 +36,16 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Header />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           <main>{children}</main>
+          <Footer />
         </ThemeProvider>
-        <Footer />
       </body>
     </html>
   );
