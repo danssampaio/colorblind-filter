@@ -1,10 +1,11 @@
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/app/components/theme-provider";
 import { config } from "@/config";
-import { signOgImageUrl } from "@/lib/og-image";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/utils/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "./components/header";
+import { Footer } from "./components/footer";
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -18,12 +19,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: config.blog.metadata.title.default,
     description: config.blog.metadata.description,
-    images: [
-      signOgImageUrl({
-        title: config.blog.name,
-      }),
-    ]
-  }
+  },
+  icons: config.blog.metadata.icons,
 };
 
 export default function RootLayout({
@@ -45,7 +42,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           <main>{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
