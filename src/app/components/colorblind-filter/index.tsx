@@ -1,5 +1,6 @@
-'use client'
+"use client";
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 type DaltonismType = "Protanopia" | "Deuteranopia" | "Tritanopia" | "Padrao";
@@ -8,9 +9,7 @@ interface colorblindFilterProps {
   onChange: (colorblindnessType: DaltonismType) => void;
 }
 
-export const ColorblindFilter = ({
-  onChange,
-}: colorblindFilterProps) => {
+export const ColorblindFilter = ({ onChange }: colorblindFilterProps) => {
   const initialColorblindnessType =
     typeof window !== "undefined"
       ? (localStorage.getItem("colorblindnessType") as DaltonismType | null)
@@ -18,6 +17,7 @@ export const ColorblindFilter = ({
   const [colorblindnessType, setColorblindnessType] = useState<DaltonismType>(
     initialColorblindnessType || "Padrao"
   );
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     onChange(colorblindnessType);
@@ -26,26 +26,53 @@ export const ColorblindFilter = ({
     }
   }, [colorblindnessType, onChange]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedType = event.target.value as DaltonismType;
+  const handleChange = (selectedType: DaltonismType) => {
     setColorblindnessType(selectedType);
+    setIsExpanded(false);
   };
 
   return (
-    <main>
-      <div className="p-2 border-black shadow rounded-lg">
-        Filtro Daltonico
-        <select
-          className="ml-2 rounded"
-          value={colorblindnessType}
-          onChange={handleChange}
-        >
-          <option value="Padrao">Padrão</option>
-          <option value="Protanopia">Protanopia</option>
-          <option value="Deuteranopia">Deuteranopia</option>
-          <option value="Tritanopia">Tritanopia</option>
-        </select>
-      </div>
-    </main>
+    <div className="fixed bottom-3 right-5 z-[9999]">
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="bg-gray-500 text-white text-sm p-4 rounded-xl shadow-black shadow "
+      >
+        <Image
+          src={"/colorblind-filter.svg"}
+          alt="Colorblind Filter"
+          width={54}
+          height={54}
+          unoptimized
+        />
+      </button>
+      {isExpanded && (
+        <div className="absolute bottom-[60px] right-0 mt-2 bg-gray-500 text-white shadow-lg rounded-lg">
+          <button
+            onClick={() => handleChange("Padrao")}
+            className="block w-full text-left p-2 hover:bg-gray-700"
+          >
+            Padrão
+          </button>
+          <button
+            onClick={() => handleChange("Protanopia")}
+            className="block w-full text-left p-2 hover:bg-gray-700"
+          >
+            Protanopia
+          </button>
+          <button
+            onClick={() => handleChange("Deuteranopia")}
+            className="block w-full text-left p-2 hover:bg-gray-700"
+          >
+            Deuteranopia
+          </button>
+          <button
+            onClick={() => handleChange("Tritanopia")}
+            className="block w-full text-left p-2 hover:bg-gray-700"
+          >
+            Tritanopia
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
