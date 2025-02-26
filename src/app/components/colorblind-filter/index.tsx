@@ -42,6 +42,8 @@ export const ColorblindFilter = ({ onChange }: colorblindFilterProps) => {
           alt="Colorblind Filter"
           width={54}
           height={54}
+          priority
+          className="w-16 h-auto"
           unoptimized
         />
       </button>

@@ -14,6 +14,7 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
 
@@ -68,8 +69,9 @@ export const Navigation: FunctionComponent = () => {
           <SheetTrigger>
             <Menu size="24" />
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className="text-white bg-gray-500 flex flex-col items-end">
             <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
               <SheetDescription>
                 {menuItems.map((item) => (
                   <a
@@ -84,14 +86,14 @@ export const Navigation: FunctionComponent = () => {
                     {item.name}
                   </a>
                 ))}
-                <div className="ml-6">
-                  <ColorblindFilter onChange={handleColorblindnessChange} />
-                </div>
-                <div className="ml-6">
-                  <DarkModeToggle />
-                </div>
               </SheetDescription>
             </SheetHeader>
+            <div className="ml-6">
+              <ColorblindFilter onChange={handleColorblindnessChange} />
+            </div>
+            <div className="ml-6">
+              <DarkModeToggle />
+            </div>
           </SheetContent>
         </Sheet>
       </div>
@@ -101,19 +103,18 @@ export const Navigation: FunctionComponent = () => {
 
 export const Header: FunctionComponent = () => {
   return (
-    <section className="flex items-center justify-between px-5 bg-gray-500 text-white shadow shadow-neutral-500">
+    <section className="flex items-center justify-between px-5 text-white shadow shadow-neutral-500 bg-gray-500">
       <Link href="/">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter leading-tight">
-          <div className="flex items-center justify-center w-[100px] h-[80px]">
-            <Image
-              src={"/colorblind-filter.svg"}
-              alt={"logo colorblind Filter"}
-              width={0}
-              height={0}
-              className="w-auto h-auto"
-            />
-          </div>
-        </h1>
+        <div className="flex items-center justify-center w-[100px] h-[80px]">
+          <Image
+            src={"/colorblind-filter.svg"}
+            alt={"logo colorblind Filter"}
+            width={0}
+            height={0}
+            priority
+            className="w-auto h-auto"
+          />
+        </div>
       </Link>
       <Navigation />
     </section>
