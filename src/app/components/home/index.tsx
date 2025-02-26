@@ -11,8 +11,7 @@ const Home = async () => {
             alt="Filtro de cor para daltonismo"
             width={500}
             height={400}
-            className="object-cover"
-            priority
+            className="w-auto h-auto object-cover"
           />
         </div>
         <p>
@@ -74,6 +73,7 @@ const Home = async () => {
               alt="Seção da retina"
               width={400}
               height={300}
+              className="w-auto h-auto"
             />
             <a
               className="container text-sm text-blue-500"
@@ -92,6 +92,7 @@ const Home = async () => {
               alt="cones e bastonetes"
               width={600}
               height={400}
+              className="w-auto h-auto"
             />
             <a
               className="container text-sm text-blue-500"
@@ -149,6 +150,7 @@ const Home = async () => {
                 alt="cones e bastonetes"
                 width={250}
                 height={200}
+                className="w-auto h-auto"
               />
               <a
                 className="text-sm text-blue-500"
@@ -168,6 +170,7 @@ const Home = async () => {
                 alt="cones e bastonetes"
                 width={250}
                 height={200}
+                className="w-auto h-auto"
               />
               <a
                 className="text-sm text-blue-500"
@@ -187,6 +190,7 @@ const Home = async () => {
                 alt="cones e bastonetes"
                 width={250}
                 height={200}
+                className="w-auto h-auto"
               />
               <a
                 className="text-sm text-blue-500"
@@ -201,7 +205,7 @@ const Home = async () => {
       </div>
 
       <hr />
-      
+
       <div>
         <h2 className="text-2xl font-semibold mt-6">Como Funciona o Filtro?</h2>
         <p>
@@ -226,6 +230,9 @@ const Home = async () => {
           .
         </p>
       </div>
+
+      <hr />
+
       <div className="pt-16">
         <h2>Referências</h2>
         <ul className="list-disc ml-6">
