@@ -22,6 +22,7 @@ const Home = async () => {
           cores corretamente.
         </p>
       </div>
+      <hr />
       <div>
         <h2 className="text-2xl font-semibold mt-6">O Propósito do Site</h2>
         <p>
@@ -41,6 +42,8 @@ const Home = async () => {
           independentemente da condição visual do usuário.
         </p>
       </div>
+
+      <hr />
 
       <div>
         <h2 className="text-2xl font-semibold mt-6">O que é o Daltonismo?</h2>
@@ -126,6 +129,8 @@ const Home = async () => {
         </p>
       </div>
 
+      <hr />
+
       <div>
         <h2 className="text-2xl font-semibold mt-6">
           Quais são os tipos de daltonismo?
@@ -195,6 +200,8 @@ const Home = async () => {
         </ul>
       </div>
 
+      <hr />
+      
       <div>
         <h2 className="text-2xl font-semibold mt-6">Como Funciona o Filtro?</h2>
         <p>

@@ -1,15 +1,14 @@
-
 import Markdown from "react-markdown";
 
 const content = `# Sobre o Projeto
 
-Bem-vindo ao nosso site! Este projeto foi desenvolvido como parte do Trabalho de Conclusão de Curso (TCC) e tem como objetivo ajudar pessoas com daltonismo a perceberem as cores de forma mais precisa através de filtros de correção de cores.
+Bem-vindo ao meu site! Este projeto foi desenvolvido como parte do Trabalho de Conclusão de Curso (TCC) e tem como objetivo ajudar pessoas com daltonismo a perceberem as cores de forma mais precisa através de filtros de correção de cores.
 
-Depois de muitas pesquisas e desenvolvimento, criamos uma solução que oferece diferentes tipos de filtros para corrigir a percepção de cores de acordo com o nível de daltonismo de cada usuário. Nosso site é uma ferramenta acessível e fácil de usar que permite às pessoas com daltonismo ver o mundo com mais clareza.
+Depois de muitas pesquisas e desenvolvimento, criei uma ferramenta que oferece três tipos de filtros para corrigir a percepção de cores de acordo com o nível de daltonismo de cada usuário, baseado nos principais tipos. Esse site é uma ferramenta de testes e fácil de usar que permite às pessoas com daltonismo ver o mundo com mais clareza.
 
-Obrigado por visitar o nosso site,
+Obrigado por visitar o meu site,
 
-Equipe do Projeto de Correção de Cores`;
+Dan Souza Sampaio`;
 
 export async function generateMetadata() {
   return {

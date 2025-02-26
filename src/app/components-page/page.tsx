@@ -10,18 +10,37 @@ const Page = async () => {
   return (
     <section className="lg:prose-lg dark:prose-invert container mt-20 mb-10">
       <div>
-        <h1 className="text-gray-800">Teste em Componentes</h1>
-        <p className="text-gray-700">
+        <h1>Teste em Componentes</h1>
+        <p>
           Esta é uma lista de componentes que podem ser integrados em sites
           utilizando a técnologia Tailwind. Foram dispostos diversos deles, das
           mais variadas cores para a realização do teste de recoloração do
           filtro.
         </p>
+        <p>
+          É necessário que qualquer aplicação web esteja de acordo com a
+          diretrizes da{" "}
+          <Link href={"https://www.w3.org/"}>
+            World Wide Web Consortium(W3C)
+          </Link>
+          e{" "}
+          <Link href={"https://www.w3.org/TR/WCAG22/"}>
+            Web Content Accessibility Guidelines(WCAG)
+          </Link>
+          , mas sabemos que boa parte das aplicações não seguem essas
+          diretrizes. Nos componentes a seguir, iremos ver como seguir essas
+          diretrizes é de extrema importância, com alguns deles não seguindo
+          algumas regras, para caso sites não possuam ferramentas que auxiliem
+          pessoas com daltonismo.
+        </p>
       </div>
+
+      <hr />
+
       <div>
         <div>
-          <h2 className="text-gray-800">Cards</h2>
-          <p className="text-gray-700">
+          <h2>Cards</h2>
+          <p>
             Muitos sites de notícias, como o{" "}
             <Link
               className="text-blue-600"
@@ -34,7 +53,7 @@ const Page = async () => {
             pessoas com condição de daltonismo que frequentam esses tipos de
             site perdem informações visuais que são passadas através das cores.
           </p>
-          <p className="text-gray-700">
+          <p>
             A seguir temos alguns exemplos de cards de notícias com cores para
             transmitir informações. A partir deles, podemos ter uma noção de
             como pessoas com daltonismo podem confundir as cores.
@@ -51,10 +70,13 @@ const Page = async () => {
           ))}
         </div>
       </div>
-      <div className="pt-5">
+      
+      <hr />
+
+      <div>
         <div>
-          <h2 className="text-gray-800">Alerts</h2>
-          <p className="text-gray-700">
+          <h2>Alerts</h2>
+          <p>
             Outra forma muito comum de passar informações através das cores, é
             utilizando alertas em relação a ações realizadas em um site, que
             pode ocasionar o retorno de um status por uma API por exemplo.
@@ -72,16 +94,33 @@ const Page = async () => {
         </div>
       </div>
 
-      <div className="mb-4">
-        <h2 className="text-gray-800">Formulários</h2>
-        <p className="text-gray-700">
-          Cores em formulário também é uma das formas de passar informações ao
-          usuário, como por exemplo, indicar se um campo está com o dado correto
-          ou errado. Desse modo, o usuário saberá se a informação no campo está
-          de acordo com a validação do formulário.
+      <hr />
+
+      <div className="pb-16">
+        <h2>Formulários</h2>
+        <p>
+          Cores em formulários também são uma das formas de passar informações
+          ao usuário, como por exemplo, indicar se um campo está com o dado
+          correto ou não. Desse modo, o usuário saberá se a informação no campo
+          está de acordo com a validação do formulário.
+        </p>
+        <p>
+          O correto seria indicar por cores e textos a informação que queremos
+          passar para o usuário segundo a WCAG. Para mostrarmos como isso é
+          importante, somente será adicionado cores, e ao enviar o formulário,
+          veremos quais campos estão corretos.
+        </p>
+        <div className="text-center border border-neutral-400 px-5 py-2 rounded-xl">
+          <h2>Formulário Teste</h2>
+          <Form />
+        </div>
+        <p>
+          Ao enviarmos o formulário com alguns campos em branco ou com erros de
+          validação, vemos que somente cores são enviadas como informação para o
+          usuário, acarretando em dificuldades para pessoas com daltonismo
+          diferenciar o que está errado.
         </p>
       </div>
-      <Form />
     </section>
   );
 };

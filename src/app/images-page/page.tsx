@@ -36,6 +36,7 @@ const ImagesPage = async () => {
               width={image.width}
               height={image.height}
               alt={image.alt}
+              unoptimized
               className="h-auto object-cover p-5"
             />
           ))}
@@ -77,6 +78,7 @@ const ImagesPage = async () => {
               width={image.width}
               height={image.height}
               alt={image.alt}
+              unoptimized
               className="h-auto object-cover p-5"
             />
           ))}

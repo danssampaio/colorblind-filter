@@ -58,14 +58,9 @@ export const Form = () => {
                   id="first-name"
                   type="text"
                   autoComplete="given-name"
-                  placeholder="Nome"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.name
-                      ? "border-red-600"
-                      : !errors.name && (dirtyFields.name || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  placeholder="Dan"
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-green-500`}
                   {...register("name")}
                 />
               </div>
@@ -77,14 +72,9 @@ export const Form = () => {
                   id="last-name"
                   type="text"
                   autoComplete="last-name"
-                  placeholder="Sobrenome"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.lastname
-                      ? "border-red-600"
-                      : !errors.lastname && (dirtyFields.lastname || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  placeholder="Souza Sampaio"
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-green-500`}
                   {...register("lastname")}
                 />
               </div>
@@ -97,13 +87,8 @@ export const Form = () => {
                   type="email"
                   autoComplete="email"
                   placeholder="Email"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.email
-                      ? "border-red-600"
-                      : !errors.email && (dirtyFields.email || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-red-600`}
                   {...register("email")}
                 />
               </div>
@@ -115,14 +100,9 @@ export const Form = () => {
                   id="phone"
                   type="phone"
                   autoComplete="phone"
-                  placeholder="Confirmação de phone"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.phone
-                      ? "border-red-600"
-                      : !errors.phone && (dirtyFields.phone || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  placeholder="Telefone"
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-red-600`}
                   {...register("phone")}
                 />
               </div>
@@ -133,16 +113,12 @@ export const Form = () => {
                 <select
                   id="country"
                   autoComplete="country-name"
-                  className="col-start-1 row-start-1 w-full appearance-none bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border border-gray-500 p-3 rounded-xl"
-                >
+                  disabled
+                  className={`block w-full bg-white px-4 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-green-500`}>
                   <option>Brasil</option>
                   <option>Canada</option>
                   <option>Portugal</option>
                 </select>
-                <FaAngleDown
-                  aria-hidden="true"
-                  className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                />
               </div>
             </div>
 
@@ -153,13 +129,8 @@ export const Form = () => {
                   type="text"
                   autoComplete="street-address"
                   placeholder="Endereço"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.streetAdress
-                      ? "border-red-600"
-                      : !errors.streetAdress && (dirtyFields.streetAdress || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-red-600`}
                   {...register("streetAdress")}
                 />
               </div>
@@ -171,14 +142,9 @@ export const Form = () => {
                   id="city"
                   type="text"
                   autoComplete="address-level2"
-                  placeholder="Cidade"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.city
-                      ? "border-red-600"
-                      : !errors.city && (dirtyFields.city || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  placeholder="Ilhéus"
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-green-500`}
                   {...register("city")}
                 />
               </div>
@@ -190,14 +156,9 @@ export const Form = () => {
                   id="state"
                   type="text"
                   autoComplete="address-level1"
-                  placeholder="Estado"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.state
-                      ? "border-red-600"
-                      : !errors.state && (dirtyFields.state || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  placeholder="Bahia"
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-green-500`}
                   {...register("state")}
                 />
               </div>
@@ -210,13 +171,8 @@ export const Form = () => {
                   type="text"
                   autoComplete="cep"
                   placeholder="CEP"
-                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl  ${
-                    errors.cep
-                      ? "border-red-600"
-                      : !errors.cep && (dirtyFields.cep || isSubmitted)
-                      ? "border-green-600"
-                      : "border-gray-500"
-                  }`}
+                  disabled
+                  className={`block w-full bg-white px-3 py-1.5 text-base text-gray-900 focus:outline-cyan-600 sm:text-sm/6 border-[3px] p-3 rounded-xl border-red-600`}
                   {...register("cep")}
                 />
               </div>
@@ -225,7 +181,7 @@ export const Form = () => {
         </div>
       </div>
       <div className="flex justify-end">
-        <button className="text-sm rounded-xl py-3 px-5 bg-cyan-500 active:bg-cyan-600">
+        <button disabled className="text-sm rounded-xl py-3 px-5 bg-green-600 text-white">
           Enviar
         </button>
       </div>
