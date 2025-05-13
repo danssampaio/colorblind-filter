@@ -65,7 +65,7 @@ const Page = async () => {
               key={card.type}
               type={card.type}
               description={card.description}
-              color={card.bgColor}
+              bgColor={card.bgColor}
             />
           ))}
         </div>
