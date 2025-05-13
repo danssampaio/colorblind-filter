@@ -1,5 +1,4 @@
 export function elementsFunctions() {
-    // Função para calcular a porcentagem das cores
     const calculateColorPercentage = (rgb: number[]): { r: number; g: number; b: number } => {
         const total = rgb.reduce((sum, val) => sum + val, 0);
         if (total === 0) return { r: 0, g: 0, b: 0 };

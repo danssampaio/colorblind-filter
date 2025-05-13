@@ -35,6 +35,19 @@ const correctForDaltonismImage = (rgb: number[], type: number): number[] => {
     ][type - 1]?.(rgb) ?? rgb;
 };
 
+const getLuminance = ([r, g, b]: number[]): number => {
+    const normalize = (channel: number) => {
+        const c = channel / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    };
+
+    const R = normalize(r);
+    const G = normalize(g);
+    const B = normalize(b);
+
+    return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+};
+
 const originalStylesMapBackground = new Map<HTMLElement, { backgroundColor: string }>();
 const originalStylesMapBorder = new Map<HTMLElement, { borderColor: string }>();
 const originalStylesMapFont = new Map<HTMLElement, { color: string }>();
@@ -76,7 +89,12 @@ export const applyDaltonismCorrection = (type: DaltonismType) => {
 
     originalStylesMapBackground.forEach(({ backgroundColor }, element) => {
         const bgRgb = backgroundColor.match(/\d+/g)?.map(Number) ?? [];
-        element.style.backgroundColor = daltonismType ? rgbToHex(correctForDaltonism(bgRgb, daltonismType)) : backgroundColor;
+        const correctedRgb = daltonismType ? correctForDaltonism(bgRgb, daltonismType) : bgRgb;
+        const newColor = rgbToHex(correctedRgb);
+        element.style.backgroundColor = newColor;
+
+        const luminance = getLuminance(correctedRgb);
+        element.style.color = luminance > 0.5 ? "#000000" : "#FFFFFF";
     });
 
     originalStylesMapBorder.forEach(({ borderColor }, element) => {
